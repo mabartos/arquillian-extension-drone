@@ -80,17 +80,17 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-chrome-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-firefox-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-ie-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -105,17 +105,17 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-opera-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-safari-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-edge-driver</artifactId>
-      <version>${version.selenium}</version>
+      <version>${version.selenium.driver}</version>
     </dependency>
     <dependency>
       <groupId>com.codeborne</groupId>

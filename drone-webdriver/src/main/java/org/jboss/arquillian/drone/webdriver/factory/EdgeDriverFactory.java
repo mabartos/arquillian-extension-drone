@@ -60,8 +60,8 @@ public class EdgeDriverFactory extends AbstractWebDriverFactory<EdgeDriver> impl
 
     public Capabilities getCapabilities(WebDriverConfiguration configuration, boolean performValidations) {
         DesiredCapabilities capabilities = new DesiredCapabilities(configuration.getCapabilities());
-        capabilities.setPlatform(DesiredCapabilities.edge().getPlatform());
-        capabilities.setBrowserName(DesiredCapabilities.edge().getBrowserName());
+        capabilities.setPlatform(BrowserCapabilitiesList.Capabilities.EDGE.getPlatformName());
+        capabilities.setBrowserName(BrowserCapabilitiesList.Capabilities.EDGE.getBrowserName());
 
         new EdgeDriverBinaryHandler(capabilities).checkAndSetBinary(true);
 
