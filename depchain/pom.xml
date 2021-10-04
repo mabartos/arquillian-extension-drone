@@ -3,9 +3,9 @@
 
   <!-- Parent -->
   <parent>
-    <groupId>org.jboss.arquillian.extension</groupId>
+    <groupId>org.mabartos.arquillian.extension</groupId>
     <artifactId>arquillian-drone-aggregator</artifactId>
-    <version>2.5.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -30,30 +30,30 @@
   <dependencies>
     <!-- Arquillian Drone -->
     <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
+      <groupId>org.mabartos.arquillian.extension</groupId>
       <artifactId>arquillian-drone-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
+      <groupId>org.mabartos.arquillian.extension</groupId>
       <artifactId>arquillian-drone-spi</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
+      <groupId>org.mabartos.arquillian.extension</groupId>
       <artifactId>arquillian-drone-configuration</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
+      <groupId>org.mabartos.arquillian.extension</groupId>
       <artifactId>arquillian-drone-impl</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.arquillian.extension</groupId>
+      <groupId>org.mabartos.arquillian.extension</groupId>
       <artifactId>arquillian-drone-webdriver</artifactId>
       <version>${project.version}</version>
       <scope>runtime</scope>
