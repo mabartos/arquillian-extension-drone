@@ -42,9 +42,10 @@ import org.jboss.arquillian.drone.webdriver.factory.remote.reusable.UnableReuseS
 import org.jboss.arquillian.drone.webdriver.utils.UrlUtils;
 import org.jboss.arquillian.drone.webdriver.utils.Validate;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.ImmutableCapabilities;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 
@@ -103,9 +104,9 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
         Validate.isEmpty(configuration.getBrowser(), "The browser is not set.");
 
         // construct capabilities
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities(getCapabilities(configuration, true));
+        Capabilities capabilities = new ImmutableCapabilities(getCapabilities(configuration, true));
         if (browser.equals("chrome") || browser.equals("chromeheadless")) {
-            new ChromeDriverFactory().setChromeOptions(configuration, desiredCapabilities);
+            new ChromeDriverFactory().setChromeOptions(configuration, new ChromeOptions().merge(capabilities));
         }
 
         if (!UrlUtils.isReachable(remoteAddress)) {
@@ -128,9 +129,9 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
         RemoteWebDriver driver = null;
 
         if (configuration.isRemoteReusable()) {
-            driver = createReusableDriver(remoteAddress, desiredCapabilities);
+            driver = createReusableDriver(remoteAddress, capabilities);
         } else {
-            driver = createRemoteDriver(remoteAddress, desiredCapabilities);
+            driver = createRemoteDriver(remoteAddress, capabilities);
         }
 
         // ARQ-1351
@@ -149,8 +150,8 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
     private void downloadAndStartSeleniumServer(WebDriverConfiguration configuration, String browser,
         URL remoteAddress) throws Exception {
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities(getCapabilities(configuration, true));
-        String seleniumServer = new SeleniumServerBinaryHandler(desiredCapabilities).downloadAndPrepare().toString();
+        Capabilities capabilities = new ImmutableCapabilities(getCapabilities(configuration, true));
+        String seleniumServer = new SeleniumServerBinaryHandler(capabilities).downloadAndPrepare().toString();
 
         if (!Validate.empty(seleniumServer)) {
             String seleniumServerArgs = configuration.getSeleniumServerArgs();
@@ -160,7 +161,7 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
             }
 
             startSeleniumServerEvent.fire(
-                new StartSeleniumServer(seleniumServer, browser, desiredCapabilities, remoteAddress,
+                new StartSeleniumServer(seleniumServer, browser, capabilities, remoteAddress,
                     seleniumServerArgs));
         }
     }

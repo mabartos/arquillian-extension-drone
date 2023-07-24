@@ -21,7 +21,6 @@ import org.jboss.arquillian.drone.spi.Destructor;
 import org.jboss.arquillian.drone.spi.Instantiator;
 import org.jboss.arquillian.drone.webdriver.configuration.WebDriverConfiguration;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -70,7 +69,7 @@ public class SafariDriverFactory extends AbstractWebDriverFactory<SafariDriver> 
      * @return A {@link Capabilities} instance
      */
     public Capabilities getCapabilities(WebDriverConfiguration configuration, boolean performValidations) {
-        DesiredCapabilities capabilities = new DesiredCapabilities(configuration.getCapabilities());
+        Capabilities capabilities = configuration.getCapabilities();
 
         SafariOptions safariOptions = SafariOptions.fromCapabilities(capabilities);
         CapabilitiesOptionsMapper.mapCapabilities(safariOptions, capabilities, BROWSER_CAPABILITIES);

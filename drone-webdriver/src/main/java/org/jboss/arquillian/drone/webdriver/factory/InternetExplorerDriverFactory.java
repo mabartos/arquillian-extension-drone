@@ -25,7 +25,6 @@ import org.jboss.arquillian.drone.webdriver.binary.handler.InternetExplorerBinar
 import org.jboss.arquillian.drone.webdriver.configuration.WebDriverConfiguration;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Factory which combines {@link org.jboss.arquillian.drone.spi.Configurator},
@@ -98,7 +97,7 @@ public class InternetExplorerDriverFactory extends AbstractWebDriverFactory<Inte
      * @return A {@link Capabilities} instance
      */
     public Capabilities getCapabilities(WebDriverConfiguration configuration, boolean performValidations) {
-        DesiredCapabilities capabilities = new DesiredCapabilities(configuration.getCapabilities());
+        Capabilities capabilities = configuration.getCapabilities();
 
         new InternetExplorerBinaryHandler(capabilities).checkAndSetBinary(performValidations);
 

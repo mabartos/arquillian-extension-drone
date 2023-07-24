@@ -19,7 +19,6 @@ package org.jboss.arquillian.drone.webdriver.configuration;
 import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +28,8 @@ import org.jboss.arquillian.drone.spi.DroneConfiguration;
 import org.jboss.arquillian.drone.webdriver.factory.BrowserCapabilitiesList;
 import org.jboss.arquillian.drone.webdriver.spi.BrowserCapabilities;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ImmutableCapabilities;
+import org.openqa.selenium.MutableCapabilities;
 
 /**
  * Generic configuration for WebDriver Driver. By default, it uses HtmlUnit Driver.
@@ -119,12 +119,11 @@ public class WebDriverConfiguration implements DroneConfiguration<WebDriverConfi
     }
 
     public Capabilities getCapabilities() {
-        // return a merge of original capability plus capabilities user has specified in configuration
-        // safely ignore null value here
-        return new DesiredCapabilities(new DesiredCapabilities(
-            _browser.getRawCapabilities() == null ? new HashMap<String, Object>()
-                : _browser.getRawCapabilities()),
-            new DesiredCapabilities(this.capabilityMap));
+        MutableCapabilities mutableCapabilities = new MutableCapabilities(this.capabilityMap);
+        if (_browser.getRawCapabilities() != null) {
+            mutableCapabilities.merge(new ImmutableCapabilities(_browser.getRawCapabilities()));
+        }
+        return new ImmutableCapabilities(mutableCapabilities);
     }
 
     public String getSeleniumServerArgs() {

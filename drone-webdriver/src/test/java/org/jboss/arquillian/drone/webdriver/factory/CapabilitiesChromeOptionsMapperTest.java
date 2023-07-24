@@ -32,8 +32,8 @@ import com.google.gson.reflect.TypeToken;
 import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.drone.webdriver.utils.StringUtils;
 import org.junit.Test;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class CapabilitiesChromeOptionsMapperTest {
 
@@ -59,7 +59,7 @@ public class CapabilitiesChromeOptionsMapperTest {
     @Test
     public void testParseChromeOptions() throws IOException {
         ChromeOptions chromeOptions = new ChromeOptions();
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        MutableCapabilities desiredCapabilities = new MutableCapabilities();
 
         String arguments = "--my-cool --arguments";
         desiredCapabilities.setCapability("chromeArguments", arguments);
@@ -98,7 +98,7 @@ public class CapabilitiesChromeOptionsMapperTest {
     public void testParseChromeOptionsWithSimpleJsonAsExperimentalOption() throws IOException {
         // given
         ChromeOptions chromeOptions = new ChromeOptions();
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+        MutableCapabilities desiredCapabilities = new MutableCapabilities();
 
         String experimentalOptionJson = "{" +
             "\"booleanOption\": false," +

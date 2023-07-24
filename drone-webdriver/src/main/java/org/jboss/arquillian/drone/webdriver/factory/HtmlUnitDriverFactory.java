@@ -29,7 +29,7 @@ import org.jboss.arquillian.drone.webdriver.htmlunit.DroneHtmlUnitDriver;
 import org.jboss.arquillian.drone.webdriver.utils.StringUtils;
 import org.jboss.arquillian.drone.webdriver.utils.Validate;
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.ImmutableCapabilities;
 
 /**
  * Factory which combines {@link org.jboss.arquillian.drone.spi.Configurator},
@@ -126,7 +126,7 @@ public class HtmlUnitDriverFactory extends AbstractWebDriverFactory<DroneHtmlUni
                 }
             }
         }
-        final DesiredCapabilities webClientCapabilities = new DesiredCapabilities(clientOptions);
+        final Capabilities webClientCapabilities = new ImmutableCapabilities(clientOptions);
 
         logger.info("Setting HtmlDriver web client options: " + clientOptions);
         CapabilitiesOptionsMapper.mapCapabilities(webClientOptions, webClientCapabilities, BROWSER_NAME);

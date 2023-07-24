@@ -21,7 +21,6 @@ import java.net.URL;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.CommandExecutor;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.Dialect;
 import org.openqa.selenium.remote.HttpCommandExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -32,7 +31,7 @@ import org.openqa.selenium.remote.SessionId;
  * browser
  * session.
  * <p>
- * Provides reusing of {@link RemoteWebDriver} session by allowing to setup {@link DesiredCapabilities} and {@link
+ * Provides reusing of {@link RemoteWebDriver} session by allowing to setup {@link
  * SessionId}
  * from previous session.
  *
@@ -57,8 +56,8 @@ public class ReusableRemoteWebDriver extends RemoteWebDriver {
         setCommandExecutor(httpCommandExecutor);
         setReusedCapabilities(capabilities);
 
-        setValueToFieldInHttpCommandExecutor(httpCommandExecutor, "commandCodec", Dialect.OSS.getCommandCodec());
-        setValueToFieldInHttpCommandExecutor(httpCommandExecutor, "responseCodec", Dialect.OSS.getResponseCodec());
+        setValueToFieldInHttpCommandExecutor(httpCommandExecutor, "commandCodec", Dialect.W3C.getCommandCodec());
+        setValueToFieldInHttpCommandExecutor(httpCommandExecutor, "responseCodec", Dialect.W3C.getResponseCodec());
 
         setSessionId(sessionId.toString());
     }

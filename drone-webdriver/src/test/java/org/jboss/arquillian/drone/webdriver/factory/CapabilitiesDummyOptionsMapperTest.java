@@ -27,7 +27,8 @@ import java.util.Map;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.MutableCapabilities;
 
 public class CapabilitiesDummyOptionsMapperTest {
 
@@ -37,7 +38,7 @@ public class CapabilitiesDummyOptionsMapperTest {
     public void testParseDummyOptions() throws IOException {
         DummyBrowserOptions dummyBrowserOptions = new DummyBrowserOptions();
         DummyBrowserOptions expectedDummyBrowserOptions = prepareDummyBrowserOptions();
-        DesiredCapabilities desiredCapabilities = prepareDesiredCapabilities(expectedDummyBrowserOptions);
+        Capabilities desiredCapabilities = prepareDesiredCapabilities(expectedDummyBrowserOptions);
 
         CapabilitiesOptionsMapper.mapCapabilities(dummyBrowserOptions, desiredCapabilities, "dummy");
 
@@ -50,7 +51,7 @@ public class CapabilitiesDummyOptionsMapperTest {
         dummyBrowserOptions.setLongParam("longParam".hashCode());
         dummyBrowserOptions.setDoubleParam("doubleParam".hashCode());
         dummyBrowserOptions.setIntParam("intParam".hashCode());
-        dummyBrowserOptions.setIntegerParam(new Integer("integerParam".hashCode()));
+        dummyBrowserOptions.setIntegerParam("integerParam".hashCode());
         dummyBrowserOptions.setBooleanParam(false);
         dummyBrowserOptions.setFileParam(new File("fileParam"));
 
@@ -65,8 +66,8 @@ public class CapabilitiesDummyOptionsMapperTest {
         dummyBrowserOptions.setListOfFilesParam(listOfFiles);
 
         ArrayList<Long> listOfLongs = new ArrayList<Long>();
-        listOfLongs.add(new Long("firstLongListParam".hashCode()));
-        listOfLongs.add(new Long("secondLongListParam".hashCode()));
+        listOfLongs.add(Long.valueOf("firstLongListParam".hashCode()));
+        listOfLongs.add(Long.valueOf("secondLongListParam".hashCode()));
         dummyBrowserOptions.setListOfLongsParam(listOfLongs);
 
         String[] arrayOfStrings = new String[] {"--firstString=ArrayParam", "--secondStringArrayParam"};
@@ -75,8 +76,8 @@ public class CapabilitiesDummyOptionsMapperTest {
         File[] arrayOfFiles = new File[] {new File("firstFileArrayParam"), new File("secondFileArrayParam")};
         dummyBrowserOptions.setArrayOfFilesParam(arrayOfFiles);
 
-        Double[] arrayOfDoubles = new Double[] {new Double("firstDoubleArrayParam".hashCode()),
-            new Double("secondDoubleArrayParam".hashCode())};
+        Double[] arrayOfDoubles = new Double[] { Double.valueOf("firstDoubleArrayParam".hashCode()),
+            Double.valueOf("secondDoubleArrayParam".hashCode())};
         dummyBrowserOptions.setArrayOfDoublesParam(arrayOfDoubles);
 
         dummyBrowserOptions.setMapOfMapOfStringsParam("mapOfStrings", getMapOfStrings());
@@ -108,8 +109,8 @@ public class CapabilitiesDummyOptionsMapperTest {
         return mapOfMapOfObjects;
     }
 
-    private DesiredCapabilities prepareDesiredCapabilities(DummyBrowserOptions dummyBrowserOptions) {
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+    private Capabilities prepareDesiredCapabilities(DummyBrowserOptions dummyBrowserOptions) {
+        MutableCapabilities desiredCapabilities = new MutableCapabilities();
 
         desiredCapabilities
             .setCapability("dummyStringParam", dummyBrowserOptions.getStringParam());

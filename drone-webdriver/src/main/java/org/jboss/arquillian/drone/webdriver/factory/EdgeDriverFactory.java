@@ -8,7 +8,6 @@ import org.jboss.arquillian.drone.webdriver.configuration.WebDriverConfiguration
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Factory which combines {@link org.jboss.arquillian.drone.spi.Configurator},
@@ -69,12 +68,10 @@ public class EdgeDriverFactory extends AbstractWebDriverFactory<EdgeDriver> impl
     }
 
     public Capabilities getCapabilities(WebDriverConfiguration configuration) {
-        DesiredCapabilities capabilities = new DesiredCapabilities(configuration.getCapabilities());
+        Capabilities capabilities = configuration.getCapabilities();
+        EdgeOptions edgeOptions = new EdgeOptions().merge(capabilities);
 
-        capabilities.setPlatform(BrowserCapabilitiesList.Capabilities.EDGE.getPlatformName());
-        capabilities.setBrowserName(BrowserCapabilitiesList.Capabilities.EDGE.getBrowserName());
-
-        new EdgeDriverBinaryHandler(capabilities).checkAndSetBinary(true);
+        new EdgeDriverBinaryHandler(edgeOptions).checkAndSetBinary(true);
 
         return capabilities;
     }
