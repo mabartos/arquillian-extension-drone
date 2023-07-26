@@ -42,7 +42,7 @@
     <version.htmlunit.driver>4.10.0</version.htmlunit.driver>
     <version.opera.driver>4.4.0</version.opera.driver>
     <phantomjs.driver.version>1.5.0</phantomjs.driver.version>
-    <version.appium.java.client>7.6.0</version.appium.java.client>
+    <version.appium.java.client>8.5.1</version.appium.java.client>
 
     <!-- Test bits versions -->
     <version.junit>4.13.2</version.junit>

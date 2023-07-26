@@ -48,6 +48,11 @@
       <artifactId>java-client</artifactId>
       <version>${version.appium.java.client}</version>
     </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>${version.selenium}</version>
+    </dependency>
 
     <!-- test dependencies -->
     <dependency>
