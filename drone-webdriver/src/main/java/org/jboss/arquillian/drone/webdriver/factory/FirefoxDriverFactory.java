@@ -124,8 +124,10 @@ public class FirefoxDriverFactory extends AbstractWebDriverFactory<FirefoxDriver
     }
 
     private FirefoxProfile getFirefoxProfile(Capabilities capabilities, boolean performValidations) {
-
-        String profile = null;
+        String profile = (String) capabilities.getCapability("firefox_profile");
+        if (profile == null) {
+            profile = (String) capabilities.getCapability("firefoxProfile");
+        }
         FirefoxProfile firefoxProfile;
 
         // use the explicit profile only if absolutely necessary;

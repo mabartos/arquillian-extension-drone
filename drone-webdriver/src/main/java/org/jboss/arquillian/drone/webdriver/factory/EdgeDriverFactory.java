@@ -7,6 +7,7 @@ import org.jboss.arquillian.drone.webdriver.binary.handler.EdgeDriverBinaryHandl
 import org.jboss.arquillian.drone.webdriver.configuration.WebDriverConfiguration;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeDriverService;
 import org.openqa.selenium.edge.EdgeOptions;
 
 /**
@@ -48,9 +49,10 @@ public class EdgeDriverFactory extends AbstractWebDriverFactory<EdgeDriver> impl
     @Override
     public EdgeDriver createInstance(WebDriverConfiguration configuration) {
         EdgeOptions edgeOptions = getEdgeOptions(configuration);
-
-        return SecurityActions.newInstance(configuration.getImplementationClass(), new Class<?>[]{EdgeOptions.class},
-            new Object[]{edgeOptions}, EdgeDriver.class);
+        EdgeDriverService service = new EdgeDriverService.Builder().withLogOutput(System.out).build();
+        return SecurityActions.newInstance(configuration.getImplementationClass(),
+            new Class<?>[] { EdgeDriverService.class, EdgeOptions.class },
+            new Object[] { service, edgeOptions}, EdgeDriver.class);
     }
 
     @Override
@@ -59,20 +61,13 @@ public class EdgeDriverFactory extends AbstractWebDriverFactory<EdgeDriver> impl
     }
 
     public EdgeOptions getEdgeOptions(WebDriverConfiguration configuration) {
-        return new EdgeOptions().merge(getCapabilities(configuration));
-    }
-
-    @Deprecated
-    public Capabilities getCapabilities(WebDriverConfiguration configuration, boolean performValidations) {
-        return getCapabilities(configuration);
-    }
-
-    public Capabilities getCapabilities(WebDriverConfiguration configuration) {
         Capabilities capabilities = configuration.getCapabilities();
-        EdgeOptions edgeOptions = new EdgeOptions().merge(capabilities);
+        EdgeOptions edgeOptions = new EdgeOptions();
+        edgeOptions.setPlatformName(capabilities.getPlatformName().name());
+        CapabilitiesOptionsMapper.mapCapabilities(edgeOptions, capabilities, BROWSER_CAPABILITIES);
 
         new EdgeDriverBinaryHandler(edgeOptions).checkAndSetBinary(true);
 
-        return capabilities;
+        return edgeOptions;
     }
 }

@@ -106,7 +106,9 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
         // construct capabilities
         Capabilities capabilities = new ImmutableCapabilities(getCapabilities(configuration, true));
         if (browser.equals("chrome") || browser.equals("chromeheadless")) {
-            new ChromeDriverFactory().setChromeOptions(configuration, new ChromeOptions().merge(capabilities));
+            ChromeOptions chromeOptions = new ChromeOptions();
+            CapabilitiesOptionsMapper.mapCapabilities(chromeOptions, capabilities, BROWSER_CAPABILITIES);
+            new ChromeDriverFactory().setChromeOptions(configuration, chromeOptions);
         }
 
         if (!UrlUtils.isReachable(remoteAddress)) {
@@ -217,13 +219,13 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
         return BROWSER_CAPABILITIES;
     }
 
-    protected RemoteWebDriver createRemoteDriver(URL remoteAddress, Capabilities desiredCapabilities) {
-        return new RemoteWebDriver(remoteAddress, desiredCapabilities);
+    protected RemoteWebDriver createRemoteDriver(URL remoteAddress, Capabilities capabilities) {
+        return new RemoteWebDriver(remoteAddress, capabilities);
     }
 
-    private RemoteWebDriver createReusableDriver(URL remoteAddress, Capabilities desiredCapabilities) {
+    private RemoteWebDriver createReusableDriver(URL remoteAddress, Capabilities capabilities) {
         // construct init params
-        InitializationParameter initParam = new InitializationParameter(remoteAddress, desiredCapabilities);
+        InitializationParameter initParam = new InitializationParameter(remoteAddress, capabilities);
 
         RemoteWebDriver driver = null;
 
@@ -246,7 +248,7 @@ public class RemoteWebDriverFactory extends AbstractWebDriverFactory<RemoteWebDr
 
         if (driver == null) {
             // if either browser session isn't stored or can't be reused
-            RemoteWebDriver newdriver = createRemoteDriver(remoteAddress, desiredCapabilities);
+            RemoteWebDriver newdriver = createRemoteDriver(remoteAddress, capabilities);
             driver = ReusableRemoteWebDriver.fromRemoteWebDriver(newdriver);
         }
 
